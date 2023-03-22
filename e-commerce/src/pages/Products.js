@@ -3,20 +3,20 @@ import { Navigate } from 'react-router-dom';
 import { useEffect, useState, useContext} from 'react';
 
 // import coursesData from '../data/coursesData';
-import CourseCard from '../components/ProductsCard';
+import ProductsCard from '../components/ProductsCard';
 import UserContext from  "../UserContext";
 
 export default function Products(){
 
 	const { user } = useContext(UserContext);
-	const [courses, setCourses] = useState([]); // Array
+	const [products, setProducts] = useState([]); // Array
 
 	useEffect(()=>{
-		fetch(`${process.env.REACT_APP_API_URL}/courses/`)
+		fetch(`${process.env.REACT_APP_API_URL}/activeProducts/`)
 		.then(res => res.json())
 		.then(data => {
 			console.log(data);
-			setCourses(data.map(products => {
+			setProducts(data.map(products => {
 				return(
 					<ProductsCard key ={products._id} productsProps = {products}/>
 				)

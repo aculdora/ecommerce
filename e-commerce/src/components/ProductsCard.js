@@ -10,7 +10,7 @@ export default function ProductsCard({productsProps}) {
 	console.log(props);
 	console.log(typeof props);*/
 
-	const {_id, name, description, price} = courseProps;
+	const {_id, name, description, price} = productsProps;
 
 	// State Hooks (useState) - a way to store information within a component and track this information
 			// getter, setter
