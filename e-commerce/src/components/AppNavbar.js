@@ -14,19 +14,19 @@ export default function AppNavbar(){
 
 	return(
 		<Navbar bg="none" expand="lg">
-			<Container fluid>
-				<Navbar.Brand class="text-light"as={Link} to="/">Aling Aleng's Shawarma</Navbar.Brand>
+			<Container class="text-light" fluid>
+				<Navbar.Brand as={Link} to="/">Aling Aleng's Shawarma</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav"/>
 				<Navbar.Collapse id="basic-navbar-nav">
 				    <Nav className="mr-auto">
-				    <Nav.Link class="text-light" as={NavLink} to="/"> Home</Nav.Link>
-				    <Nav.Link class="text-light" as={NavLink} to="/Products"> Products</Nav.Link>
+				    <Nav.Link as={NavLink} to="/"> Home</Nav.Link>
+				    <Nav.Link as={NavLink} to="/Products"> Products</Nav.Link>
 				    {(user.id !== null)?
-				    	<Nav.Link class="text-light" as={NavLink} to="/logout"> Logout</Nav.Link>
+				    	<Nav.Link as={NavLink} to="/logout"> Logout</Nav.Link>
 				    	:
 				    	<Fragment>
-				    	<Nav.Link class="text-light" as={NavLink} to="/login"> Login</Nav.Link>
-				    	<Nav.Link class="text-light" as={NavLink} to="/register"> Register</Nav.Link>
+				    	<Nav.Link as={NavLink} to="/login"> Login</Nav.Link>
+				    	<Nav.Link as={NavLink} to="/register"> Register</Nav.Link>
 				    	</Fragment>
 					}
 				    

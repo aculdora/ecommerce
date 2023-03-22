@@ -11,12 +11,12 @@ import { useState, useEffect, useContext } from 'react';
 
 import AppNavbar from './components/AppNavbar';
 import Home from './pages/Home';
-import Courses from './pages/Products';
+import Products from './pages/Products';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Error from './pages/ErrorPage';
-import CourseView from './pages/ProductsView';
+import ProductsView from './pages/ProductsView';
 import backgroundImage from "./Photos/background.jpg";
 
 // s45 Additional example
@@ -44,11 +44,11 @@ function App() {
 
   <Router>
     <Container fluid>
-      <AppNavbar />
+      <AppNavbar class="text-light"/>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/courses/:courseId" element={<CourseView />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:productsId" element={<ProductsView />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/settings" element={<Settings />} />

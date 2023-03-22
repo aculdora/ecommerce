@@ -88,9 +88,9 @@ export default function Login(){
 
 		(user.id !== null)
 		? 
-		<Navigate to ="/courses" />
+		<Navigate to ="/products" />
 		: 
-		<div className="container-fluid">
+		<div className="container-fluid text-light">
             <div className="row">
                 <div className="col-md-4 col-sm-6 col-xs-12">
                    	<Form onSubmit = {(event) => Authenticate(event)}>
