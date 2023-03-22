@@ -18,7 +18,7 @@ import Logout from './pages/Logout';
 import Error from './pages/ErrorPage';
 import ProductsView from './pages/ProductsView';
 import backgroundImage from "./Photos/background.jpg";
-
+import AdminDashboard from './pages/AdminDashboard'
 // s45 Additional example
 import Settings from './pages/Settings';
 
@@ -47,6 +47,7 @@ function App() {
       <AppNavbar class="text-light"/>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route exact path="/admin" element={<AdminDashboard />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:productsId" element={<ProductsView />} />
           <Route path="/register" element={<Register />} />

@@ -14,9 +14,11 @@ router.post("/create", auth.verify, (request, response) =>
 })
 
 // RETRIEVE ALL ACTIVE PRODUCTS
-router.get("/activeProducts", (request, response) => {
+/*router.get("/activeProducts", (request, response) => {
 	productControllers.getActiveProducts(request.body).then(resultFromController => response.send(resultFromController));
-})
+})*/
+
+router.get("/activeProducts", productControllers.getActiveProducts);
 
 // RETRIEVE ALL SINGLE PRODUCT
 

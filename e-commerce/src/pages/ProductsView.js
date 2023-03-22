@@ -80,9 +80,9 @@ export default function ProductView(){
 							{
 								(user.id !== null)
 								?
-									<Button variant="primary"  size="lg" onClick={() => checkOut(productId)}>Buy</Button>
+									<Button variant="primary"  size="lg" onClick={() => checkOut(productId)}>checkOut</Button>
 								:
-									<Button as={Link} to="/login" variant="success"  size="lg">Login to Buy</Button>
+									<Button as={Link} to="/login" variant="success"  size="lg">Login to checkOut</Button>
 							}
 						</Card.Body>		
 					</Card>

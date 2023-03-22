@@ -45,7 +45,7 @@ export default function ProductsCard({productsProps}) {
 
 
 	return (
-	    <Card>
+	    <Card class="mt-5">
 	        <Card.Body>
 	            <Card.Title>{name}</Card.Title>
 	            <Card.Subtitle>Description:</Card.Subtitle>

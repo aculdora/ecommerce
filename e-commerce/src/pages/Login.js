@@ -14,11 +14,7 @@ export default function Login(){
 
 	const [password, setPassword] = useState('');
 	const [isActive, setIsActive] = useState(false);
-	console.log(email);
-	console.log(password);
-
-
-	
+		
 	function Authenticate(event){
 		event.preventDefault();
 		fetch(`${process.env.REACT_APP_API_URL}/users/login`,{
@@ -65,6 +61,7 @@ export default function Login(){
 		})
 		.then(res => res.json())
 		.then(data => {
+			console.log("retrieveUserDetails: ")
 			console.log(data);
 
 			setUser({
@@ -133,5 +130,3 @@ export default function Login(){
     </div>
 	)
 }
-
-<script src="./Login.css"></script>

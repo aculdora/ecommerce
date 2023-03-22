@@ -1,23 +1,26 @@
-const User = require("../models/users.js");
+const User = require("../models/Users.js");
 const bcrypt = require("bcrypt");
 const auth = require("../auth.js");
-const Product = require("../models/products.js")
+const Product = require("../models/Products.js")
 
-
+/*const saltRounds = 10;
+const myPlaintextPassword = 'myPassword';
+const salt = bcrypt.genSaltSync(saltRounds);
+const hash = bcrypt.hashSync(myPlaintextPassword, salt);*/
 // [SESSION 42 - START]-------------------------
 
 // REGISTER
-module.exports.registerUser = (reqBody) => {
+module.exports.registerUser = (req, res) => {
 	let newUser = new User({
-		firstName : reqBody.firstName,
-		lastName : reqBody.lastName,
-		email: reqBody.email,
-		mobileNo: reqBody.mobileNo,
-		password: bcrypt.hashSync(reqBody.password, 10),
-		isAdmin: reqBody.isAdmin
+		firstName : req.body.firstName,
+		lastName : req.body.lastName,
+		email: req.body.email,
+		mobileNumber: req.body.mobileNumber,
+		password: bcrypt.hashSync(req.body.password, 10)
+		// isAdmin: req.Body.isAdmin
 		// 10 - salt
 	})
-
+	
 	return newUser.save().then((user,error) =>
 	{
 		if(error){
@@ -30,15 +33,32 @@ module.exports.registerUser = (reqBody) => {
 }
 
 
-// LOG-IN
-/*module.exports.loginUser = (reqBody) => {
 
-	return User.findOne({email: reqBody.email}).then(result => {
+module.exports.checkEmailExists = (req, res) =>{
+	return User.find({email: req.body.email}).then(result =>{
+		console.log(result);
+		if(result.length > 0){
+			return res.send(true);
+			
+		}
+		else{
+			return	res.send(false);
+			
+		}
+	})
+	.catch(error => res.send(error));
+}
+
+
+// LOG-IN
+/*module.exports.loginUser = (req, res) => {
+
+	return User.find({email: req.body.email}).then(result => {
 		if(result == null){
 			return false
 		}
 		else{
-			const isPasswordCorrect = bcrypt.compareSync(reqBody.password, result.password); 
+			const isPasswordCorrect = bcrypt.compareSync(req.body.password, result.password); 
 			if(isPasswordCorrect){
 				return {access: auth.createAccessToken(result)};
 			}
@@ -49,17 +69,45 @@ module.exports.registerUser = (reqBody) => {
 	})
 }*/
 
-module.exports.loginUser = async (reqBody) => {
-	const user = await User.findOne({ email: reqBody.email });
+module.exports.loginUser = (req, res) => {
+  return User.findOne({ email: req.body.email }).then((result) => {
+  	console.log(result);
+    if (!result) {
+      return false;
+    } else {
+      const isPasswordCorrect = bcrypt.compareSync(req.body.password, result.password);
+      if (isPasswordCorrect) {
+        return { access: auth.createAccessToken(result) };
+      } else {
+        return false;
+      }
+    }
+  });
+};
+
+module.exports.userDetails = (req, res) => {
+		
+		const userData = auth.decode(req.headers.authorization);
+
+		console.log(userData);
+
+		return User.findById(userData.id).then(result =>{
+			result.password = "***";
+			res.send(result);
+		})
+	}
+
+/*module.exports.loginUser = async (req, res) => {
+	const user = await User.find({ email: req.body.email });
 	if (!user) {
 		return false;
 	}
-	const isPasswordCorrect = bcrypt.compareSync(reqBody.password, user.password);
+	const isPasswordCorrect = bcrypt.compareSync(req.body.password, user.password);
 	if (!isPasswordCorrect) {
 		return false;
 	}
 	return { access: auth.createAccessToken(user) };
-}
+}*/
 
 
 // GET ALL USER
@@ -187,8 +235,8 @@ module.exports.checkOut = async (request, response) => {
 
 // RETRIEVE USER DETAILS
 
-module.exports.userDetails = (reqBody) => {
-	 return User.findById(reqBody._id).then((result, error) =>{
+/*module.exports.userDetails = (req, res) => {
+	 return User.findById(req.body._id).then((result, error) =>{
 		if (error){
 			return false;
 			}
@@ -198,7 +246,10 @@ module.exports.userDetails = (reqBody) => {
 		}
 	})
 		
-}
+}*/
+
+
+
 
 
 // [SESSION 45 - END]-------------------------

@@ -1,24 +1,52 @@
 const productsData = [
 		{
 			id: "wdc001",
-			name: "PHP - Laravel",
-			description: "Nostrud velit dolor excepteur ullamco consectetur aliquip tempor. Consectetur occaecat laborum exercitation sint reprehenderit irure nulla mollit. Do dolore sint deserunt quis ut sunt ad nulla est consectetur culpa. Est esse dolore nisi consequat nostrud id nostrud sint sint deserunt dolore.",
-			price: 45000,
-			onOffer: true		
+			name: "Shawarma-pita - large",
+			description: "Authentic ground beef fillings dressed with fresh vagetables (cucumber, tomato & onion) generously dripped with mouth watering cheese and garlic sauce rolled in a hand-made large pita",
+			price: 75,
+			isActive: true		
 		},
 		{
 		    id: "wdc002",
-		    name: "Python - Django",
-		    description: "Eu non commodo et eu ex incididunt minim aliquip anim. Aliquip voluptate ut velit fugiat laborum. Laborum dolore anim pariatur pariatur commodo minim ut officia mollit ad ipsum ex. Laborum veniam cupidatat veniam minim occaecat veniam deserunt nulla irure. Enim elit sint magna incididunt occaecat in dolor amet dolore consectetur ad mollit. Exercitation sunt occaecat labore irure proident consectetur commodo ad anim ea tempor irure.",
-		    price: 50000,
-		    onOffer: true
+		    name: "Shawarma-pita - small",
+		    description: "Authentic ground beef fillings dressed with fresh vagetables (cucumber, tomato & onion) generously dripped with mouth watering cheese and garlic sauce rolled in a hand-made small pita",
+		    price: 65,
+		    isActive: true
 		},
 		{
 		    id: "wdc003",
-		    name: "Java - Springboot",
-		    description: "Proident est adipisicing est deserunt cillum dolore. Fugiat incididunt quis aliquip ut aliquip est mollit officia dolor ea cupidatat velit. Consectetur aute velit aute ipsum quis. Eiusmod dolor exercitation dolor mollit duis velit aliquip dolor proident ex exercitation labore cupidatat. Eu aliquip mollit labore do.",
-		    price: 55000,
-		    onOffer: true
+		    name: "Shawarma-rice",
+		    description: "Marinated rice topped with authentic ground beef, fresh vagetables (cucumber, tomato & onion) and generously dripped with mouth watering cheese and garlic sauce",
+		    price: 75,
+		    isActive: true
+		},
+		{
+		    id: "wdc004",
+		    name: "Nachos",
+		    description: "Nachos topped with authentic ground beef, fresh vagetables (cucumber, tomato & onion) and generously dripped with mouth watering cheese and garlic sauce",
+		    price: 50,
+		    isActive: true
+		},
+		{
+			id: "wdc005",
+			name: "Add-ons Cheese Sauce",
+			description: "Home-made cheese sauce",
+			price: 10,
+			isActive: true		
+		},
+		{
+		    id: "wdc006",
+			name: "Add-ons Garlic Sauce",
+			description: "Home-made garlic sauce",
+			price: 10,
+			isActive: true	
+		},
+		{
+		    id: "wdc007",
+		    name: "Add-ons Nachos Special Dip",
+		    description: "Home-made secret recipe special dip for nachos",
+		    price: 15,
+		    isActive: true
 		}
 ]
 

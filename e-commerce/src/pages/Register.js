@@ -5,43 +5,70 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 export default function Register() {
-  const { user, setUser } = useContext(UserContext);
+
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [mobileNumber, setmobileNumber] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [isActive, setIsActive] = useState(false);
-  const [password, setPassword] = useState('');
-  const [checkEmailExists, setCheckEmailExists] = useState(false);
+  
+  // Check if values are successfully binded
+    console.log(firstName);
+    console.log(lastName);
+    console.log(email);
+    console.log(mobileNumber);
+    /*console.log(password1);
+    console.log(password2);*/
+    
+    useEffect(() => {
+      if ((
+        firstName !== '' &&
+        lastName !== '' &&
+        email !== '' &&
+        mobileNumber.length >= 11 &&
+        password1 !== '' &&
+        password2 !== '' )&&(
+        password1 === password2)
+      ) {
+        setIsActive(true);
+      } else {
+        setIsActive(false);
+      }
+    }, [firstName, lastName, email, mobileNumber, password1, password2]);
+
 
   function registerUser(event) {
     event.preventDefault();
 
+    
     fetch(`${process.env.REACT_APP_API_URL}/users/checkEmail`, {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email
-      })
-    })
-      .then(result => result.json())
+                method: "POST",
+                headers:{
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify({
+                    email: email
+                })
+            })
+      .then(res => res.json())
       .then(data => {
-      	console.log(data);
-        if (data = false) {
+        if (data) {
           Swal.fire({
             title: 'Duplicate Email Found',
             icon: 'error',
             text: 'Please provide a different email.'
-          });
-        } else {
+          })
+        } 
+        else {
           fetch(`${process.env.REACT_APP_API_URL}/users/register`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-              "Content-Type" : "application/json",
-				Authorization: `Bearer ${localStorage.getItem("token")}`
+              "Content-Type" : "application/json"
             },
             body: JSON.stringify({
               firstName: firstName,
@@ -51,7 +78,7 @@ export default function Register() {
               mobileNumber: mobileNumber
             })
           })
-            .then(result => result.json())
+            .then(res => res.json())
             .then(data => {
             	console.log("registered data");
               console.log(data);
@@ -60,49 +87,38 @@ export default function Register() {
                 Swal.fire({
                   title: 'Successful registration',
                   icon: 'success',
-                  text: 'You have successfully registered.'
+                  text: 'Welcome to Aling ALeng'
                 });
 
                 navigate('/login');
                 setFirstName('');
                 setLastName('');
                 setEmail('');
-                setmobileNumber('');
+                setMobileNumber('');
                 setPassword1('');
                 setPassword2('');
-              } else {
+                
+
+              } 
+              else {
                 Swal.fire({
                   title: 'Something went wrong',
                   icon: 'error',
                   text: 'Please try again.'
                 });
               }
-            });
+            })
         }
-      });
+      })
   }
 
-  useEffect(() => {
-    if (
-      firstName !== '' &&
-      lastName !== '' &&
-      email !== '' &&
-      mobileNumber.length >= 11 &&
-      password1 !== '' &&
-      password2 !== '' &&
-      password1 === password2
-    ) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  }, [firstName, lastName, email, mobileNumber, password1, password2]);
+  
 
 	return(
 
 		(user.id !== null)
 		?
-		<Navigate to ="/courses" />
+		<Navigate to="/products"/>
 		:
 		<Form onSubmit = {event => registerUser(event)}>
 		<h3>Register</h3>
@@ -149,7 +165,7 @@ export default function Register() {
 	                type= "number"
 	                placeholder="Enter Mobile Number" 
 	                value = {mobileNumber}
-	                onChange = {event => setmobileNumber(event.target.value)}
+	                onChange = {event => setMobileNumber(event.target.value)}
 	                required
                 />
              </Form.Group>

@@ -5,7 +5,7 @@ import Highlights from '../components/Highlights';
 const data = {
 	title: "My home page",
 	content: "Put content",
-	destination: "/Products",
+	destination: "/products",
 	label: "Buy Now!"
 
 }

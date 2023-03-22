@@ -1,7 +1,6 @@
-
-
+//const auth = require("../auth");
 const mongoose = require("mongoose");
-const Product = require("../models/products.js");
+const Product = require("../models/Products.js");
 
 // [SESSION 43 - START]----------------------------------
 
@@ -34,10 +33,8 @@ module.exports.addProduct = (reqBody, result) => {
 
 
 //	GET ALL ACTIVE PRODUCTS
-module.exports.getActiveProducts = () => {
-	return Product.find({isActive: true}).then(result =>{
-		return result;
-	})
+module.exports.getActiveProducts = (req, res) => {
+	return Product.find({isActive: true}).then(result => res.send(result));
 }
 // [SESSION 43 - END]----------------------------------
 
