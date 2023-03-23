@@ -3,14 +3,10 @@ const bcrypt = require("bcrypt");
 const auth = require("../auth.js");
 const Product = require("../models/Products.js")
 
-/*const saltRounds = 10;
-const myPlaintextPassword = 'myPassword';
-const salt = bcrypt.genSaltSync(saltRounds);
-const hash = bcrypt.hashSync(myPlaintextPassword, salt);*/
-// [SESSION 42 - START]-------------------------
 
-// REGISTER
-module.exports.registerUser = (req, res) => {
+// REGISTER #1
+
+/*module.exports.registerUser = (req, res) => {
 	let newUser = new User({
 		firstName : req.body.firstName,
 		lastName : req.body.lastName,
@@ -30,9 +26,44 @@ module.exports.registerUser = (req, res) => {
 			return ("You are now registered!");
 		}
 	})
+}*/
+
+// REGISTER #2
+
+module.exports.registerUser = (request,response) => {
+	let newUser = new User({
+		firstName: request.body.firstName,
+		lastName: request.body.lastName,
+		email: request.body.email,
+		mobileNumber: request.body.mobileNumber,
+		password: bcrypt.hashSync(request.body.password, 10)
+	});
+		return User.findOne({$or: [{mobileNumber: request.body.mobileNumber}, {email: request.body.email}]})
+    		.then(result => {
+        if(result != null && result.email == request.body.email){
+            response.send (false);
+        }
+        else if(result != null && result.mobileNumber == request.body.mobileNumber){
+            response.send (false);
+        } 
+		else{
+			return newUser.save().then((user, error) => {
+				if(error){
+					return error;
+				}
+				else{
+					response.send (true);
+				}
+			})
+			.catch(error =>{
+				console.log(error);
+				response.send(false);
+			})
+		}
+	})
 }
 
-
+// Check if emails Exists
 
 module.exports.checkEmailExists = (req, res) =>{
 	return User.find({email: req.body.email}).then(result =>{
@@ -50,7 +81,8 @@ module.exports.checkEmailExists = (req, res) =>{
 }
 
 
-// LOG-IN
+// LOG-IN #1
+
 /*module.exports.loginUser = (req, res) => {
 
 	return User.find({email: req.body.email}).then(result => {
@@ -69,7 +101,9 @@ module.exports.checkEmailExists = (req, res) =>{
 	})
 }*/
 
-module.exports.loginUser = (req, res) => {
+// LOG-IN #2
+
+/*module.exports.loginUser = (req, res) => {
   return User.findOne({ email: req.body.email }).then((result) => {
   	console.log(result);
     if (!result) {
@@ -83,19 +117,29 @@ module.exports.loginUser = (req, res) => {
       }
     }
   });
-};
+};*/
 
-module.exports.userDetails = (req, res) => {
-		
-		const userData = auth.decode(req.headers.authorization);
+// LOG-IN #3
 
-		console.log(userData);
+module.exports.loginUser = (request) => {
+	return User.findOne({email: request.email}).then(result => {
+		if(result == null){
+			return false;
+		}
+		else{
+			const userPassword = bcrypt.compareSync(request.password, result.password);
 
-		return User.findById(userData.id).then(result =>{
-			result.password = "***";
-			res.send(result);
-		})
-	}
+			if(userPassword){
+				return {access: auth.createAccessToken(result)};
+			}
+			else{
+				return false;
+			}
+		}
+	})
+}
+
+// LOG-IN #4
 
 /*module.exports.loginUser = async (req, res) => {
 	const user = await User.find({ email: req.body.email });
@@ -109,6 +153,36 @@ module.exports.userDetails = (req, res) => {
 	return { access: auth.createAccessToken(user) };
 }*/
 
+// RETRIEVE USER DETAILS #1
+
+/*module.exports.userDetails = (req, res) => {
+	 return User.findById(req.body._id).then((result, error) =>{
+		if (error){
+			return false;
+			}
+		else{
+			result.password = "*****";
+			return result;
+		}
+	})
+		
+}*/
+
+// RETRIEVE USER DETAILS #2
+
+module.exports.userDetails = (req, res) => {
+		
+		const userData = auth.decode(req.headers.authorization);
+
+		console.log(userData);
+
+		return User.findById(userData.id).then(result =>{
+			result.password = "***";
+			res.send(result);
+		})
+	}
+
+
 
 // GET ALL USER
 module.exports.getAllUsers = () => {
@@ -116,10 +190,6 @@ module.exports.getAllUsers = () => {
 		return result;
 	})
 }
-// [SESSION 42 - END]-------------------------
-
-
-// [SESSION 45 - START]-------------------------
 
 
 // CHECKOUT ORDERS
@@ -132,9 +202,6 @@ module.exports.checkOut = async (request, response) => {
 	let totalAmount = await request.body.quantity*price;
 	let stocks = await Product.findById(request.body.productId).then(result => result.stocks);
 	
-
-	// Product.findById(request.body.productId).then(result => result.price);
-
 	let newData = {
 		userId: userData.id,
 		userEmail: userData.email,
@@ -233,30 +300,8 @@ module.exports.checkOut = async (request, response) => {
 }
 
 
-// RETRIEVE USER DETAILS
 
-/*module.exports.userDetails = (req, res) => {
-	 return User.findById(req.body._id).then((result, error) =>{
-		if (error){
-			return false;
-			}
-		else{
-			result.password = "*****";
-			return result;
-		}
-	})
-		
-}*/
-
-
-
-
-
-// [SESSION 45 - END]-------------------------
-
-// ADDITIONAL FEATURE
-
-// UPDATE USER ACCES
+// UPDATE USER ACCESS
 
 
 module.exports.updateAccess = (userId, newData) => {

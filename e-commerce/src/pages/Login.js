@@ -19,7 +19,10 @@ export default function Login(){
 		event.preventDefault();
 		fetch(`${process.env.REACT_APP_API_URL}/users/login`,{
 			method: 'POST',
-			headers: { 'Content-Type' : 'application/json'},
+			headers: {
+				'Content-Type' : 'application/json',
+				'Authorization': `Bearer ${localStorage.getItem('access')}`
+			},
 			body: JSON.stringify({
 				email: email,
 				password: password
@@ -49,8 +52,8 @@ export default function Login(){
 				text: "Check your login details and try again"
 				})
 			}
+			setEmail('');
 		})
-		setEmail('');
 	}
 
 	const retrieveUserDetails = (token) => {
@@ -71,22 +74,25 @@ export default function Login(){
 		})
 	}
 
-	useEffect(()=>{
-		if(email !== '' && password !== ''){
+	useEffect(() => {
+		if(email != '' && password != ''){
 			setIsActive(true);
 		}
 		else{
 			setIsActive(false);
 		}
 	}, [email, password])
+	
 
-
-	return(
-
-		(user.id !== null)
-		? 
-		<Navigate to ="/products" />
-		: 
+	// redirecting to admin dashboard
+	if	(user.isAdmin == true && user.token !== null){	
+		return <Navigate to="/admin"/>}
+	// redirecting to user dashboard (products)
+	if	(user.isAdmin == false && user.token !== null){
+		return <Navigate to="/products"/>}
+		
+	else{
+		return(
 		<div className="container-fluid text-light">
             <div className="row">
                 <div className="col-md-4 col-sm-6 col-xs-12">
@@ -129,4 +135,4 @@ export default function Login(){
       </div>
     </div>
 	)
-}
+}}

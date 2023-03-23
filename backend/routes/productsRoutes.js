@@ -13,6 +13,9 @@ router.post("/create", auth.verify, (request, response) =>
 	productControllers.addProduct(request.body, result).then(resultFromController => response.send(resultFromController));
 })
 
+// RETRIEVE ALL PRODUCTS
+router.get('/allProducts', productControllers.getAllProducts);
+
 // RETRIEVE ALL ACTIVE PRODUCTS
 /*router.get("/activeProducts", (request, response) => {
 	productControllers.getActiveProducts(request.body).then(resultFromController => response.send(resultFromController));
@@ -20,7 +23,7 @@ router.post("/create", auth.verify, (request, response) =>
 
 router.get("/activeProducts", productControllers.getActiveProducts);
 
-// RETRIEVE ALL SINGLE PRODUCT
+// RETRIEVE SINGLE PRODUCT
 
 router.get("/:productId", (request, response) => {
 	productControllers.getSingleProduct(request.params.productId).then(resultFromController => response.send(resultFromController));

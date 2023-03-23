@@ -1,8 +1,6 @@
-//const auth = require("../auth");
+const auth = require("../auth");
 const mongoose = require("mongoose");
 const Product = require("../models/Products.js");
-
-// [SESSION 43 - START]----------------------------------
 
 // CREATING PRODUCT
 module.exports.addProduct = (reqBody, result) => {
@@ -32,13 +30,16 @@ module.exports.addProduct = (reqBody, result) => {
 }
 
 
+//	GET ALL PRODUCTS
+module.exports.getAllProducts = (req, res) => {
+	return Product.find().then(result => res.send(result));
+}
+
 //	GET ALL ACTIVE PRODUCTS
 module.exports.getActiveProducts = (req, res) => {
 	return Product.find({isActive: true}).then(result => res.send(result));
 }
-// [SESSION 43 - END]----------------------------------
 
-// [SESSION 44 - START]--------------------------------
 
 // RETRIEVE SINGLE PRODUCT
 module.exports.getSingleProduct = (productId) => {
@@ -93,10 +94,6 @@ module.exports.productArchive = (productId, newData) => {
 		return message.then((value) => {return value});
 	}
 }
-
-
-// [SESSION 44 - END]----------------------------------------------------------
-
 
 
 // ADDITIONAL FEATURE

@@ -1,81 +1,76 @@
 import {useContext, useEffect, useState} from "react";
-
 import { Button, Table, Modal, Form } from "react-bootstrap";
 import {Navigate} from "react-router-dom";
 import Swal from "sweetalert2";
 
 import UserContext from "../UserContext";
 
-export default function AdminDashboard(){
+	export default function AdminDashboard(){
 
-	const { user } = useContext(UserContext);
+		const { user } = useContext(UserContext);
 
-	// Create allCourses state to contain the courses from the response of our fetch data.
-	const [allProducts, setAllProducts] = useState([]);
+	// Create allProducts state to contain the products from the response of our fetch data.
+		const [allProducts, setAllProducts] = useState([]);
 
 	// State hooks to store the values of the input fields for our modal.
-	const [productsId, setProductsId] = useState("");
-	const [name, setName] = useState("");
-	const [description, setDescription] = useState("");
-	const [price, setPrice] = useState(0);
-    const [stocks, setStocks] = useState(0);
+		const [productsId, setProductsId] = useState("");
+		const [name, setName] = useState("");
+		const [description, setDescription] = useState("");
+		const [price, setPrice] = useState(0);
+    	const [stocks, setStocks] = useState(0);
 
     // State to determine whether submit button in the modal is enabled or not
-    const [isActive, setIsActive] = useState(false);
+    	const [isActive, setIsActive] = useState(false);
 
     // State for Add/Edit Modal
-    const [showAdd, setShowAdd] = useState(false);
-	const [showEdit, setShowEdit] = useState(false);
+    	const [showAdd, setShowAdd] = useState(false);
+		const [showEdit, setShowEdit] = useState(false);
 
-	// To control the add course modal pop out
-	const openAdd = () => setShowAdd(true); //Will show the modal
-	const closeAdd = () => setShowAdd(false); //Will hide the modal
+	// To control the add product modal pop out
+		const openAdd = () => setShowAdd(true); //Will show the modal
+		const closeAdd = () => setShowAdd(false); //Will hide the modal
 
 	// To control the edit course modal pop out
 	// We have passed a parameter from the edit button so we can retrieve a specific course and bind it with our input fields.
-	const openEdit = (id) => {
-		setProductsId(id);
+		const openEdit = (id) => {
+			setProductsId(id);
 
 		// Getting a specific course to pass on the edit modal
-		fetch(`${ process.env.REACT_APP_API_URL }/products/${id}`)
-		.then(res => res.json())
-		.then(data => {
-
-			console.log(data);
-
-			// updating the course states for editing
+			fetch(`${ process.env.REACT_APP_API_URL }/products/${id}`)
+				.then(res => res.json())
+				.then(data => {
+					console.log(data);
+		// updating the course states for editing
 			setName(data.name);
 			setDescription(data.description);
 			setPrice(data.price);
 			setStocks(data.stocks);
 		});
-
-		setShowEdit(true)
+			setShowEdit(true)
 	};
 
-	const closeEdit = () => {
+		const closeEdit = () => {
+	// Clear input fields upon closing the modal
+	    	setName('');
+	    	setDescription('');
+	    	setPrice(0);
+	    	setStocks(0);
 
-		// Clear input fields upon closing the modal
-	    setName('');
-	    setDescription('');
-	    setPrice(0);
-	    setStocks(0);
-
-		setShowEdit(false);
-	};
+			setShowEdit(false);
+		};
 
 	// [SECTION] To view all course in the database (active & inactive)
 	// fetchData() function to get all the active/inactive courses.
-	const fetchData = () =>{
+		const fetchData = () =>{
 		// get all the courses from the database
-		fetch(`${process.env.REACT_APP_API_URL}/products/all`, {
-			headers:{
-				"Authorization": `Bearer ${localStorage.getItem("token")}`
-			}
-		})
-		.then(res => res.json())
-		.then(data => {
-			console.log(data);
+			fetch(`${process.env.REACT_APP_API_URL}/products/all`, {
+				headers:{
+					"Authorization": `Bearer ${localStorage.getItem("token")}`
+				}
+			})
+			.then(res => res.json())
+			.then(data => {
+				console.log(data);
 
 			setAllProducts(data.map(products => {
 				return (
