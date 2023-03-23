@@ -1,20 +1,3 @@
-/*import error from './error.PNG'
-
-export default function Error() {
-  return (
-      <div class="container">
-        <div class="row justify-content-center ">
-          <div class="col-8">
-          <img src={error}/>
-          <h1 class=" text-center">Page Not Found!</h1>
-            <p class=" text-center">Go back to the <a href ="/">homepage.</a></p>
-          </div>
-        </div>
-      </div>    
-  );
-}*/
-
-
 import Banner from '../components/Banner';
 
 

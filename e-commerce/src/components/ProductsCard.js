@@ -10,7 +10,7 @@ export default function ProductsCard({productsProps}) {
 	console.log(props);
 	console.log(typeof props);*/
 
-	const {_id, name, description, price} = productsProps;
+	const {_id, name, description, stocks, price} = productsProps;
 
 	// State Hooks (useState) - a way to store information within a component and track this information
 			// getter, setter
@@ -45,7 +45,7 @@ export default function ProductsCard({productsProps}) {
 
 
 	return (
-	    <Card class="mt-5">
+	    <Card className="mt-5">
 	        <Card.Body>
 	            <Card.Title>{name}</Card.Title>
 	            <Card.Subtitle>Description:</Card.Subtitle>

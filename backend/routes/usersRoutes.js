@@ -7,9 +7,9 @@ const auth = require("../auth.js");
 	router.post("/register", userControllers.registerUser);
 	router.post("/checkEmail", userControllers.checkEmailExists);
 	router.post("/login", userControllers.loginUser);
-	router.post("/details", userControllers.userDetails);
+	router.post("/details", userControllers.retrieveUserDetails);
 	router.post("/checkOut", auth.verify, userControllers.checkOut);
-
+	router.post("/admin", auth.verify, userControllers.updateAccess);
 	// ADDITIONAL FEATURES
 	/*router.patch("/:userId/toAdmin", auth.verify, (request, response) => {
 		const newData = {

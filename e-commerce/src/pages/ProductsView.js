@@ -12,6 +12,7 @@ export default function ProductView(){
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState(0);
+	const [stocks, setStocks] = useState(0);
 
 	useEffect(()=>{
 		console.log(productId);
@@ -23,6 +24,7 @@ export default function ProductView(){
 
 			setName(data.name);
 			setDescription(data.description);
+			setStocks(data.stocks)
 			setPrice(data.price);
 		})
 	}, [productId])
@@ -75,6 +77,8 @@ export default function ProductView(){
 							<Card.Text>{description}</Card.Text>
 							<Card.Subtitle>Price:</Card.Subtitle>
 							<Card.Text>PhP {price}</Card.Text>
+							<Card.Subtitle>Stocks:</Card.Subtitle>
+							<Card.Text>{stocks}</Card.Text>
 							<Card.Subtitle>Enter details</Card.Subtitle>
 							<Card.Text>Enter details</Card.Text>
 							{

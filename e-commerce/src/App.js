@@ -35,7 +35,7 @@ function App() {
               <AppNavbar className="text-light"/>
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route exact path="/admin" element={<AdminDashboard />} />
+                  <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="/products" element={<Products />} />
                   <Route path="/products/:productId" element={<ProductsView />} />
                   <Route path="/register" element={<Register />} />

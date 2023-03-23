@@ -121,7 +121,7 @@ module.exports.checkEmailExists = (req, res) =>{
 
 // LOG-IN #3
 
-module.exports.loginUser = (request) => {
+/*module.exports.loginUser = (request) => {
 	return User.findOne({email: request.email}).then(result => {
 		if(result == null){
 			return false;
@@ -137,7 +137,27 @@ module.exports.loginUser = (request) => {
 			}
 		}
 	})
+}*/
+
+// LOG-IN #4
+module.exports.loginUser = (req, res) =>{
+	return User.findOne({email: req.body.email})
+	.then(result => {
+		if(result == null){
+			return res.send(false);
+		}
+		else{
+			const isPasswordCorrect = bcrypt.compareSync(req.body.password, result.password);
+			if(isPasswordCorrect){
+				return res.send({accessToken: auth.createAccessToken(result)});
+			}
+			else{
+				return res.send(false);
+			}
+		}
+	})
 }
+
 
 // LOG-IN #4
 
@@ -170,7 +190,7 @@ module.exports.loginUser = (request) => {
 
 // RETRIEVE USER DETAILS #2
 
-module.exports.userDetails = (req, res) => {
+module.exports.retrieveUserDetails = (req, res) => {
 		
 		const userData = auth.decode(req.headers.authorization);
 
@@ -181,6 +201,8 @@ module.exports.userDetails = (req, res) => {
 			res.send(result);
 		})
 	}
+
+	
 
 
 

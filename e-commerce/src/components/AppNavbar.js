@@ -5,7 +5,7 @@ import UserContext from "../UserContext"
 
 	export default function AppNavbar(){
 		const { user } = useContext(UserContext);
-			console.log(user);
+			
 
 		return(
 			<Navbar bg="none" expand="lg">
@@ -22,6 +22,7 @@ import UserContext from "../UserContext"
 				    			<Fragment>
 				    				<Nav.Link as={NavLink} to="/login"> Login</Nav.Link>
 				    				<Nav.Link as={NavLink} to="/register"> Register</Nav.Link>
+				    				<Nav.Link as={NavLink} to="/admin"> Admin DashBoard</Nav.Link>
 				    			</Fragment>
 										}
 			    				</Nav>

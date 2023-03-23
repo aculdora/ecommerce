@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from "react";
 import { Button, Table, Modal, Form } from "react-bootstrap";
-import {Navigate} from "react-router-dom";
+import {Navigate, Link} from "react-router-dom";
 import Swal from "sweetalert2";
 
 import UserContext from "../UserContext";
@@ -8,39 +8,25 @@ import UserContext from "../UserContext";
 	export default function AdminDashboard(){
 
 		const { user } = useContext(UserContext);
-
-	// Create allProducts state to contain the products from the response of our fetch data.
 		const [allProducts, setAllProducts] = useState([]);
-
-	// State hooks to store the values of the input fields for our modal.
 		const [productsId, setProductsId] = useState("");
 		const [name, setName] = useState("");
 		const [description, setDescription] = useState("");
 		const [price, setPrice] = useState(0);
     	const [stocks, setStocks] = useState(0);
-
-    // State to determine whether submit button in the modal is enabled or not
     	const [isActive, setIsActive] = useState(false);
-
-    // State for Add/Edit Modal
     	const [showAdd, setShowAdd] = useState(false);
 		const [showEdit, setShowEdit] = useState(false);
-
-	// To control the add product modal pop out
-		const openAdd = () => setShowAdd(true); //Will show the modal
-		const closeAdd = () => setShowAdd(false); //Will hide the modal
-
-	// To control the edit course modal pop out
-	// We have passed a parameter from the edit button so we can retrieve a specific course and bind it with our input fields.
+		const openAdd = () => setShowAdd(true); 
+		const closeAdd = () => setShowAdd(false); 
+		
 		const openEdit = (id) => {
 			setProductsId(id);
-
-		// Getting a specific course to pass on the edit modal
 			fetch(`${ process.env.REACT_APP_API_URL }/products/${id}`)
 				.then(res => res.json())
 				.then(data => {
 					console.log(data);
-		// updating the course states for editing
+		
 			setName(data.name);
 			setDescription(data.description);
 			setPrice(data.price);
@@ -50,7 +36,7 @@ import UserContext from "../UserContext";
 	};
 
 		const closeEdit = () => {
-	// Clear input fields upon closing the modal
+	
 	    	setName('');
 	    	setDescription('');
 	    	setPrice(0);
@@ -59,10 +45,9 @@ import UserContext from "../UserContext";
 			setShowEdit(false);
 		};
 
-	// [SECTION] To view all course in the database (active & inactive)
-	// fetchData() function to get all the active/inactive courses.
+	
 		const fetchData = () =>{
-		// get all the courses from the database
+		
 			fetch(`${process.env.REACT_APP_API_URL}/products/all`, {
 				headers:{
 					"Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -83,7 +68,6 @@ import UserContext from "../UserContext";
 						<td>{products.isActive ? "Active" : "Inactive"}</td>
 						<td>
 							{
-								// conditonal rendering on what button should be visible base on the status of the course
 								(products.isActive)
 								?
 									<Button variant="danger" size="sm" onClick={() => archive(products._id, products.name)}>Archive</Button>
@@ -101,19 +85,14 @@ import UserContext from "../UserContext";
 		});
 	}
 
-	// to fetch all courses in the first render of the page.
 	useEffect(()=>{
 		fetchData();
 	}, [])
 
-	// [SECTION] Setting the course to Active/Inactive
-
-	// Making the course inactive
 	const archive = (id, productsName) =>{
 		console.log(id);
 		console.log(productsName);
 
-		// Using the fetch method to set the isActive property of the course document to false
 		fetch(`${process.env.REACT_APP_API_URL}/products/archive/${id}`, {
 			method: "PATCH",
 			headers:{
@@ -147,12 +126,11 @@ import UserContext from "../UserContext";
 		})
 	}
 
-	// Making the course active
+	
 	const unarchive = (id, productsName) =>{
 		console.log(id);
 		console.log(productsName);
 
-		// Using the fetch method to set the isActive property of the course document to false
 		fetch(`${process.env.REACT_APP_API_URL}/products/archive/${id}`, {
 			method: "PATCH",
 			headers:{
@@ -173,7 +151,7 @@ import UserContext from "../UserContext";
 					icon: "success",
 					text: `${productsName} is now active.`
 				});
-				// To show the update with the specific operation intiated.
+				
 				fetchData();
 			}
 			else{
@@ -186,10 +164,8 @@ import UserContext from "../UserContext";
 		})
 	}
 
-	// [SECTION] Adding a new course
-	// Inserting a new course in our database
 	const addProducts = (e) =>{
-			// Prevents page redirection via form submission
+			
 		    e.preventDefault();
 
 		    fetch(`${process.env.REACT_APP_API_URL}/products/`, {
@@ -216,9 +192,7 @@ import UserContext from "../UserContext";
 		    		    text: `${name} is now added`
 		    		});
 
-		    		// To automatically add the update in the page
 		    		fetchData();
-		    		// Automatically closed the modal
 		    		closeAdd();
 		    	}
 		    	else{
@@ -232,18 +206,14 @@ import UserContext from "../UserContext";
 
 		    })
 
-		    // Clear input fields
 		    setName('');
 		    setDescription('');
 		    setPrice(0);
 		    setStocks(0);
 	}
 
-	// [SECTION] Edit a specific course
-	// Updating a specific course in our database
-	// edit a specific course
 	const editProducts = (e) =>{
-			// Prevents page redirection via form submission
+		
 		    e.preventDefault();
 
 		    fetch(`${process.env.REACT_APP_API_URL}/products/${productsId}`, {
@@ -270,9 +240,7 @@ import UserContext from "../UserContext";
 		    		    text: `${name} is now updated`
 		    		});
 
-		    		// To automatically add the update in the page
 		    		fetchData();
-		    		// Automatically closed the form
 		    		closeEdit();
 
 		    	}
@@ -287,18 +255,13 @@ import UserContext from "../UserContext";
 		    	}
 
 		    })
-
-		    // Clear input fields
 		    setName('');
 		    setDescription('');
 		    setPrice(0);
 		    setStocks(0);
 	} 
 
-	// Submit button validation for add/edit course
 	useEffect(() => {
-
-        // Validation to enable submit button when all fields are populated and set a price and slot greater than zero.
         if(name != "" && description != "" && price > 0 && stocks > 0){
             setIsActive(true);
         } else {
@@ -311,19 +274,13 @@ import UserContext from "../UserContext";
 		(user.isAdmin)
 		?
 		<>
-			{/*Header for the admin dashboard and functionality for create course and show enrollments*/}
 			<div className="mt-5 mb-3 text-center">
 				<h1>Admin Dashboard</h1>
-				{/*Adding a new course */}
 				<Button variant="success" className="
 				mx-2" onClick={openAdd}>Add Product</Button>
-				{/*To view all the user enrollments*/}
 				<Button variant="secondary" className="
 				mx-2">Show Purchases</Button>
 			</div>
-			{/*End of admin dashboard header*/}
-
-			{/*For view all the courses in the database.*/}
 			<Table striped bordered hover>
 		      <thead>
 		        <tr>
@@ -340,10 +297,7 @@ import UserContext from "../UserContext";
 	        	{allProducts}
 		      </tbody>
 		    </Table>
-			{/*End of table for course viewing*/}
-
-	    	{/*Modal for Adding a new course*/}
-	        <Modal show={showAdd} fullscreen={true} onHide={closeAdd}>
+			<Modal show={showAdd} fullscreen={true} onHide={closeAdd}>
 	    		<Form onSubmit={e => addProducts(e)}>
 
 	    			<Modal.Header closeButton>
@@ -415,9 +369,7 @@ import UserContext from "../UserContext";
 
 	    		</Form>	
 	    	</Modal>
-	    {/*End of modal for adding course*/}
-
-    	{/*Modal for Editing a course*/}
+	  
         <Modal show={showEdit} fullscreen={true} onHide={closeEdit}>
     		<Form onSubmit={e => editProducts(e)}>
 
@@ -490,7 +442,6 @@ import UserContext from "../UserContext";
 
     		</Form>	
     	</Modal>
-    	{/*End of modal for editing a course*/}
 		</>
 		:
 		<Navigate to="/products" />

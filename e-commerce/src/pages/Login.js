@@ -15,7 +15,7 @@ export default function Login(){
 	const [password, setPassword] = useState('');
 	const [isActive, setIsActive] = useState(false);
 		
-	function Authenticate(event){
+	function authenticate(event){
 		event.preventDefault();
 		fetch(`${process.env.REACT_APP_API_URL}/users/login`,{
 			method: 'POST',
@@ -52,6 +52,7 @@ export default function Login(){
 				text: "Check your login details and try again"
 				})
 			}
+		
 			setEmail('');
 		})
 	}
@@ -85,18 +86,20 @@ export default function Login(){
 	
 
 	// redirecting to admin dashboard
-	if	(user.isAdmin == true && user.token !== null){	
-		return <Navigate to="/admin"/>}
+	if (user.isAdmin && localStorage.getItem('token')) {
+	  return <Navigate to="/admin" />;
+	}
 	// redirecting to user dashboard (products)
-	if	(user.isAdmin == false && user.token !== null){
-		return <Navigate to="/products"/>}
+	if (!user.isAdmin && localStorage.getItem('token')) {
+	  return <Navigate to="/products" />;
+	}
 		
 	else{
 		return(
 		<div className="container-fluid text-light">
             <div className="row">
                 <div className="col-md-4 col-sm-6 col-xs-12">
-                   	<Form onSubmit = {(event) => Authenticate(event)}>
+                   	<Form onSubmit = {(event) => authenticate(event)}>
 						<h3>Login</h3>
             				<Form.Group controlId="userEmail">
                					 <Form.Label>Email address</Form.Label>
