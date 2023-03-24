@@ -13,11 +13,13 @@ export default function ProductView(){
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState(0);
 	const [stocks, setStocks] = useState(0);
+	const [quantity, setQuantity] = useState(0);
+	const total = quantity*price;
 
 	useEffect(()=>{
 		console.log(productId);
 
-		fetch(`${process.env.REACT_APP_API_URL}/products/${productId}`)
+		fetch(`${process.env.REACT_APP_API_URL}/products/getSingle/${productId}`)
 		.then(res => res.json())
 		.then(data =>{
 			console.log(data);
@@ -29,6 +31,18 @@ export default function ProductView(){
 		})
 	}, [productId])
 
+	const provideQuantity = (event) => {
+	  const buttonValue = event.target.value;
+	  if (buttonValue == 1) {
+	    setQuantity(prevQuantity => prevQuantity + 1);
+	  }
+	  if (buttonValue == -1) {
+	    setQuantity(prevQuantity => prevQuantity - 1);
+	  }
+
+	}
+
+
 	const checkOut = (productId) =>{
 
 		fetch(`${process.env.REACT_APP_API_URL}/users/checkOut`, {
@@ -38,7 +52,8 @@ export default function ProductView(){
 				Authorization: `Bearer ${localStorage.getItem("token")}`
 			},
 			body: JSON.stringify({
-				productId : productId
+				productId : productId,
+				quantity : quantity
 			})
 		})
 			.then(res => res.json())
@@ -79,8 +94,16 @@ export default function ProductView(){
 							<Card.Text>PhP {price}</Card.Text>
 							<Card.Subtitle>Stocks:</Card.Subtitle>
 							<Card.Text>{stocks}</Card.Text>
-							<Card.Subtitle>Enter details</Card.Subtitle>
-							<Card.Text>Enter details</Card.Text>
+							<Card.Subtitle>Quantity:</Card.Subtitle>
+							<Card.Text>
+								<Button variant="bg-muted" value={-1} onClick={provideQuantity} disabled={quantity === 0}>-</Button>
+									{quantity}
+								<Button variant="bg-muted" value={1} onClick={provideQuantity}>+</Button>
+							</Card.Text>
+							<Card.Subtitle>Total:</Card.Subtitle>
+							<Card.Text>{total}</Card.Text>
+
+
 							{
 								(user.id !== null)
 								?

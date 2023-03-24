@@ -25,7 +25,7 @@ router.get("/activeProducts", productControllers.getActiveProducts);
 
 // RETRIEVE SINGLE PRODUCT
 
-router.get("/:productId", (request, response) => {
+router.get("/getSingle/:productId", (request, response) => {
 	productControllers.getSingleProduct(request.params.productId).then(resultFromController => response.send(resultFromController));
 })
 

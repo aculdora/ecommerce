@@ -53,6 +53,7 @@ export default function ProductsCard({productsProps}) {
 	            <Card.Subtitle>Price:</Card.Subtitle>
 	            <Card.Text>{price}</Card.Text>
 	            <Button as={Link} to={`/products/${_id}`}>Buy</Button>
+	           {/* <Button className="ml-10" as={Link} to={`/products/${_id}`}>Add to Cart</Button>*/}
 	            {/*<Card.Text>Total Enrolled: {count}<br/>Seat/s left: {seats}</Card.Text>*/}
 	        </Card.Body>
 	    </Card>

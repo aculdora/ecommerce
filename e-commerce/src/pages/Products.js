@@ -26,27 +26,27 @@ export default function Products(){
 	}, []);*/
 
 
-	useEffect(()=>{
+	/*useEffect(()=>{
   setProducts(productsData.map(products => {
     return (
       <ProductsCard key={products.id} productsProps={products}/>
     );
   }));
-}, []);
+}, []);*/
 
-	/*useEffect(() => {
+	useEffect(() => {
 		fetch(`${process.env.REACT_APP_API_URL}/products/allProducts`)
 		.then(result => result.json())
 		.then(data => {
 			console.log(data);
-			setProducts(data.map(products => {
+			setProducts(data.map(product => {
 				return(
-					<ProductsCard key = {products._id} productsProps = {products}/>
+					<ProductsCard key = {products._id} productsProps = {product}/>
 					
 				)
 			}))
 		})
-	}, []);*/
+	}, []);
 
 
 

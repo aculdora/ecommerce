@@ -228,6 +228,8 @@ module.exports.checkOut = async (request, response) => {
 		userId: userData.id,
 		userEmail: userData.email,
 		productId: request.body.productId,
+		productName: productName,
+
 		stocks: stocks,
 		quantity: request.body.quantity,
 		totalAmount: totalAmount,
