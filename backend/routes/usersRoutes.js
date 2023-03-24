@@ -7,9 +7,12 @@ const auth = require("../auth.js");
 	router.post("/register", userControllers.registerUser);
 	router.post("/checkEmail", userControllers.checkEmailExists);
 	router.post("/login", userControllers.loginUser);
-	router.post("/details", userControllers.retrieveUserDetails);
+	router.get("/details", auth.verify, userControllers.retrieveUserDetails);
 	router.post("/checkOut", auth.verify, userControllers.checkOut);
 	router.post("/admin", auth.verify, userControllers.updateAccess);
+
+
+
 	// ADDITIONAL FEATURES
 	/*router.patch("/:userId/toAdmin", auth.verify, (request, response) => {
 		const newData = {
@@ -30,5 +33,19 @@ const auth = require("../auth.js");
 		response.send("User upgraded to admin.");
 	});
 });*/
+
+
+	// DELETE USER BY ID
+	/*router.delete("/:userId/delete", (request, response) => {
+		userController.deleteUser(request.params.userId).then(resultFromController => response.send(resultFromController));
+	})*/
+
+
+	// DELETE ALL USERS
+	/*router.delete("/deleteAllUsers", (request, response) => {
+		userController.deleteAllUsers().then(resultFromController => response.send(resultFromController));
+	})*/
+
+
 
 module.exports = router;

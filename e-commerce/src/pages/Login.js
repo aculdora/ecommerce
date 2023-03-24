@@ -1,7 +1,7 @@
 import { Form, Button } from 'react-bootstrap';
 import { useState, useEffect, useContext } from 'react';
 import UserContext from '../UserContext';
-import {Navigate} from 'react-router-dom';
+import {Navigate, Link} from 'react-router-dom';
 import React from "react";
 import Swal from 'sweetalert2'
 
@@ -21,7 +21,7 @@ export default function Login(){
 			method: 'POST',
 			headers: {
 				'Content-Type' : 'application/json',
-				'Authorization': `Bearer ${localStorage.getItem('access')}`
+				/*'Authorization': `Bearer ${localStorage.getItem('access')}`*/
 			},
 			body: JSON.stringify({
 				email: email,
@@ -72,6 +72,7 @@ export default function Login(){
 				id : data._id,
 				isAdmin: data.isAdmin
 			})
+			
 		})
 	}
 
@@ -86,12 +87,14 @@ export default function Login(){
 	
 
 	// redirecting to admin dashboard
-	if (user.isAdmin && localStorage.getItem('token')) {
+	if (user.isAdmin === true && localStorage.getItem('token')) {
 	  return <Navigate to="/admin" />;
+	  console.log(user.isAdmin);
 	}
 	// redirecting to user dashboard (products)
-	if (!user.isAdmin && localStorage.getItem('token')) {
+	if (user.isAdmin === false && localStorage.getItem('token')) {
 	  return <Navigate to="/products" />;
+	  console.log(user.isAdmin);
 	}
 		
 	else{

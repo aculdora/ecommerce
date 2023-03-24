@@ -208,7 +208,7 @@ module.exports.retrieveUserDetails = (req, res) => {
 
 // GET ALL USER
 module.exports.getAllUsers = () => {
-	return User.find({}).then(result =>{
+	return User.find().then(result =>{
 		return result;
 	})
 }
@@ -346,6 +346,18 @@ module.exports.updateAccess = (userId, newData) => {
 	}
 };
 
+// DELETE USER BY ID
+module.exports.deleteUser = (userId) => {
+	return User.findByIdAndDelete(userId).then(result => {
+		return result;
+	})
+}
 
 
 
+// DELETE ALL USERS
+module.exports.deleteAllUsers = () => {
+	return User.deleteMany().then(result => {
+		return result;
+	})
+}

@@ -10,7 +10,7 @@ module.exports.addProduct = (reqBody, result) => {
 		description: reqBody.description,
 		price: reqBody.price,
 		stocks: reqBody.stocks,
-		isActive: reqBody.isActive
+		
 	})
 	return newProduct.save().then((newProduct, error) =>
 	{

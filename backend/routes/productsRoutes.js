@@ -45,7 +45,7 @@ router.patch("/:productId/update", auth.verify, (request,response) =>
 
 // ARCHIVE PRODUCT (ADMIN)
 
-router.patch("/:productId/archive", auth.verify, (request,response) => 
+router.patch("/archive/:productId", auth.verify, (request,response) => 
 {
 	const newData = {
 		products: request.body,

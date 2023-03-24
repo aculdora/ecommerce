@@ -34,6 +34,21 @@ export default function Products(){
   }));
 }, []);
 
+	/*useEffect(() => {
+		fetch(`${process.env.REACT_APP_API_URL}/products/allProducts`)
+		.then(result => result.json())
+		.then(data => {
+			console.log(data);
+			setProducts(data.map(products => {
+				return(
+					<ProductsCard key = {products._id} productsProps = {products}/>
+					
+				)
+			}))
+		})
+	}, []);*/
+
+
 
 
 	return (

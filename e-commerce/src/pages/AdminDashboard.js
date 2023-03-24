@@ -2,12 +2,14 @@ import {useContext, useEffect, useState} from "react";
 import { Button, Table, Modal, Form } from "react-bootstrap";
 import {Navigate, Link} from "react-router-dom";
 import Swal from "sweetalert2";
-
+import React from "react";
 import UserContext from "../UserContext";
 
 	export default function AdminDashboard(){
 
 		const { user } = useContext(UserContext);
+
+
 		const [allProducts, setAllProducts] = useState([]);
 		const [productsId, setProductsId] = useState("");
 		const [name, setName] = useState("");
@@ -48,7 +50,7 @@ import UserContext from "../UserContext";
 	
 		const fetchData = () =>{
 		
-			fetch(`${process.env.REACT_APP_API_URL}/products/all`, {
+			fetch(`${process.env.REACT_APP_API_URL}/products/allProducts`, {
 				headers:{
 					"Authorization": `Bearer ${localStorage.getItem("token")}`
 				}
@@ -59,13 +61,14 @@ import UserContext from "../UserContext";
 
 			setAllProducts(data.map(products => {
 				return (
-					<tr key={products._id}>
+					
+					<tr bg-dark key={products._id}>
 						<td>{products._id}</td>
 						<td>{products.name}</td>
 						<td>{products.description}</td>
-						<td>{products.price}</td>
-						<td>{products.stocks}</td>
-						<td>{products.isActive ? "Active" : "Inactive"}</td>
+						<td className="text-light">{products.price}</td>
+						<td className="text-light">{products.stocks}</td>
+						<td className="text-light">{products.isActive ? "Active" : "Inactive"}</td>
 						<td>
 							{
 								(products.isActive)
@@ -80,6 +83,7 @@ import UserContext from "../UserContext";
 							}
 						</td>
 					</tr>
+
 				)
 			}));
 		});
@@ -89,9 +93,9 @@ import UserContext from "../UserContext";
 		fetchData();
 	}, [])
 
-	const archive = (id, productsName) =>{
+	const archive = (id, productName) =>{
 		console.log(id);
-		console.log(productsName);
+		console.log(productName);
 
 		fetch(`${process.env.REACT_APP_API_URL}/products/archive/${id}`, {
 			method: "PATCH",
@@ -111,7 +115,7 @@ import UserContext from "../UserContext";
 				Swal.fire({
 					title: "Archive Successful",
 					icon: "success",
-					text: `${productsName} is now inactive.`
+					text: `${productName} is now inactive.`
 				});
 				// To show the update with the specific operation intiated.
 				fetchData();
@@ -127,9 +131,9 @@ import UserContext from "../UserContext";
 	}
 
 	
-	const unarchive = (id, productsName) =>{
+	const unarchive = (id, productName) =>{
 		console.log(id);
-		console.log(productsName);
+		console.log(productName);
 
 		fetch(`${process.env.REACT_APP_API_URL}/products/archive/${id}`, {
 			method: "PATCH",
@@ -149,7 +153,7 @@ import UserContext from "../UserContext";
 				Swal.fire({
 					title: "Unarchive Successful",
 					icon: "success",
-					text: `${productsName} is now active.`
+					text: `${productName} is now active.`
 				});
 				
 				fetchData();
@@ -168,7 +172,7 @@ import UserContext from "../UserContext";
 			
 		    e.preventDefault();
 
-		    fetch(`${process.env.REACT_APP_API_URL}/products/`, {
+		    fetch(`${process.env.REACT_APP_API_URL}/products/create`, {
 		    	method: "POST",
 		    	headers: {
 					"Content-Type": "application/json",
@@ -216,8 +220,8 @@ import UserContext from "../UserContext";
 		
 		    e.preventDefault();
 
-		    fetch(`${process.env.REACT_APP_API_URL}/products/${productsId}`, {
-		    	method: "PUT",
+		    fetch(`${process.env.REACT_APP_API_URL}/products/${productsId}/update`, {
+		    	method: "PATCH",
 		    	headers: {
 					"Content-Type": "application/json",
 					"Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -287,13 +291,13 @@ import UserContext from "../UserContext";
 		          <th>Products ID</th>
 		          <th>Products Name</th>
 		          <th>Description</th>
-		          <th>Price</th>
-		          <th>Stocks</th>
-		          <th>Status</th>
-		          <th>Actions</th>
+		          <th className="text-light">Price</th>
+		          <th className="text-light">Stocks</th>
+		          <th className="text-light">Status</th>
+		          <th className="text-light">Actions</th>
 		        </tr>
 		      </thead>
-		      <tbody>
+		      <tbody >
 	        	{allProducts}
 		      </tbody>
 		    </Table>

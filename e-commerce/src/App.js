@@ -21,7 +21,7 @@ import Error from './pages/ErrorPage';
 
 function App() {
   const [user, setUser] = useState({
-    email: localStorage.getItem('email')
+    id: localStorage.getItem('id')
   })
 
   const unsetUser = () => {
