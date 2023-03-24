@@ -363,3 +363,133 @@ module.exports.deleteAllUsers = () => {
 		return result;
 	})
 }
+
+
+// ADD to CART
+
+module.exports.addToCart = (request, response) => {
+
+	const userData = auth.decode(request.headers.authorization);
+	Product.findById(request.body.productId)
+		.then(async result => {
+			if(userData.isAdmin == true){
+				response.send ("Please login as guest user.");
+			}
+
+			else{
+				let productName = await result.name;
+				let price = await result.price;
+				let totalAmount = await request.body.quantity * price;
+				let stocks = await result.stocks;
+				let quantity = await result.quantity;
+				let isActive = await result.isActive;
+				let reqQuantity = await request.body.quantity;
+
+				let newData = {		
+					userId: userData.id,
+					userName: userData.userName,
+					userEmail: userData.email,
+					stocks:  stocks,
+					isActive: isActive,
+					quantity: request.body.quantity,
+					productId: request.body.productId,
+					totalAmount: totalAmount,
+					products: [{		
+						productId: request.body.productId,
+						productName: productName,
+						quantity: request.body.quantity
+					}]
+				};
+
+				console.log(newData);
+
+				let isProductUpdated = await Product.findById(newData.productId).then(products =>{
+						products.orders.push({
+							userId: newData.userId,
+							userName: newData.userName,
+							userEmail: newData.userEmail,
+							quantity: newData.quantity
+						})
+						if(products.stocks <= 0){			
+							return ("No stocks available.");
+						}
+						else if(request.body.quantity > products.stocks){
+							return("Not enough stocks.");
+						}
+						else{
+							products.stocks = products.stocks - newData.quantity;
+							if(products.stocks == 0) {
+							    products.isActive = false;
+							}
+							else{
+								console.log(products);
+								return true
+							}
+						}
+					})
+					console.log(isProductUpdated);
+
+					let isUserUpdated = await User.findById(newData.userId)
+					.then(users => {
+						if(newData.stocks == 0){
+							return ("No stocks available.");
+						}
+						else if(reqQuantity > stocks && stocks > 0){
+							return ("Not enough stocks.");
+						}
+						else{
+							users.addToCart.push({
+								productName: newData.productName,
+								quantity: newData.quantity,
+								totalAmount: newData.totalAmount,
+								products: newData.products
+							});
+						
+							
+							return users.save()
+							.then(result => {
+								console.log(result);
+								return true;
+							})
+							.catch(error => {
+								console.log(error);
+								return false;
+							})
+						}
+					})
+
+					console.log(isUserUpdated);
+
+					
+
+							/*	
+								(isUserUpdated == true && isProductUpdated == true)? response.send("User and Products are updated"): response.send("Not updated");
+							*/
+					
+					if(isUserUpdated && isProductUpdated == true){
+						response.send(`Product Added to Cart.`);
+					}
+					else if(isUserUpdated == false){
+						response.send(error);
+					}
+					else if(isProductUpdated && isUserUpdated == "No stocks available."){
+						response.send("No stocks available as of the moment.")
+					}
+					else if(isProductUpdated && isUserUpdated == "Not enough stocks."){
+						response.send(`Not enough stocks, there are only ${stocks} stock/s of ${productName} left.`);
+					}
+					else if(isProductUpdated == false){
+						response.send("Product was not updated.");
+					}
+					else if(isProductUpdated == "Product is Inactive."){
+						response.send("Product is Inactive.");
+					}
+					else{
+						response.send("User and Products were not updated");
+					}
+				
+			}
+		})
+}
+
+

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, Fragment } from 'react';
 import {Container, Card, Button, Row, Col} from 'react-bootstrap';
 import {useParams, useNavigate, Link} from 'react-router-dom';
 import UserContext from '../UserContext';
@@ -15,6 +15,7 @@ export default function ProductView(){
 	const [stocks, setStocks] = useState(0);
 	const [quantity, setQuantity] = useState(0);
 	const total = quantity*price;
+	const [cart, setCart] = useState([]);
 
 	useEffect(()=>{
 		console.log(productId);
@@ -42,6 +43,7 @@ export default function ProductView(){
 
 	}
 
+	
 
 	const checkOut = (productId) =>{
 
@@ -81,6 +83,8 @@ export default function ProductView(){
 			})
 		}
 
+		
+
 	return(
 		<Container className="mt-5">
 			<Row>
@@ -107,7 +111,10 @@ export default function ProductView(){
 							{
 								(user.id !== null)
 								?
+								<Fragment>
+									<Button variant="primary"  size="lg" onClick={addToCart}>Add to cart</Button>
 									<Button variant="primary"  size="lg" onClick={() => checkOut(productId)}>checkOut</Button>
+									</Fragment>
 								:
 									<Button as={Link} to="/login" variant="success"  size="lg">Login to checkOut</Button>
 							}

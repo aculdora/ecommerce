@@ -10,6 +10,8 @@ const auth = require("../auth.js");
 	router.get("/details", auth.verify, userControllers.retrieveUserDetails);
 	router.post("/checkOut", auth.verify, userControllers.checkOut);
 	router.post("/admin", auth.verify, userControllers.updateAccess);
+	// Add to Cart
+	router.post("/addToCart", auth.verify, userControllers.addToCart);
 
 
 
