@@ -282,10 +282,10 @@ import UserContext from "../UserContext";
 				<h1>Admin Dashboard</h1>
 				<Button variant="success" className="
 				mx-2" onClick={openAdd}>Add Product</Button>
-				<Button variant="secondary" className="
-				mx-2">Show Purchases</Button>
+				{/*<Button variant="secondary" className="
+				mx-2">Show Purchases</Button>*/}
 			</div>
-			<Table striped bordered hover>
+			<Table className="text-light" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }} bordered>
 		      <thead>
 		        <tr>
 		          <th>Products ID</th>

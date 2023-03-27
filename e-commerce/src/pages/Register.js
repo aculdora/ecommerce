@@ -120,8 +120,12 @@ export default function Register() {
 		?
 		<Navigate to="/products"/>
 		:
+    <div className="container-fluid text-light pb-5">
+            <div className="row">
+                <div className="col-md-4 col-sm-6 col-xs-12">
 		<Form onSubmit = {event => registerUser(event)}>
-		<h3>Register</h3>
+    
+		<h3 className="text-light text-center">Register</h3>
 			<Form.Group controlId="userFirstName">
                 <Form.Label>First Name</Form.Label>
                 <Form.Control 
@@ -202,5 +206,8 @@ export default function Register() {
             </Button>
         	}
         </Form>
+         </div>
+      </div>
+    </div>
         )
 }

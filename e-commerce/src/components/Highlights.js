@@ -17,7 +17,7 @@ export default function Highlights() {
                             <h2 className="text-center text-light">Shawarma - PITA</h2>
                         </Card.Title>
                         <Card.Text>
-                            <div className="container-fluid text-center"><img src={Pita} alt="Pita" style={{ maxWidth: '500px' }} /></div>
+                            <div className="container-fluid text-center"><img className="img-fluid"  src={Pita} alt="Pita" /*style={{ maxWidth: '500px' }}*/ /></div>
 
                         </Card.Text>
                     </Card.Body>
@@ -30,7 +30,7 @@ export default function Highlights() {
                             <h2 className="text-center text-light">Shawarma Rice</h2>
                         </Card.Title>
                         <Card.Text>
-                            <div className="container-fluid text-center"><img src={ShawarmaRice} alt="Shawarma Rice" style={{ maxWidth: '500px' }} /></div>
+                            <div className="container-fluid text-center"><img className="img-fluid"  src={ShawarmaRice} alt="Shawarma Rice" /*style={{ maxWidth: '500px' }}*/ /></div>
                         </Card.Text>
                     </Card.Body>
                 </Card>
