@@ -17,6 +17,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import Settings from './pages/Settings';
 import Logout from './pages/Logout';
 import Error from './pages/ErrorPage';
+import addToCartHandler from './pages/ProductsView';
+import CartPage from './pages/Cart';
 
 
 function App() {
@@ -37,7 +39,8 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="/products" element={<Products />} />
-                  <Route path="/products/:productId" element={<ProductsView />} />
+                  <Route path="/products/:productId" element={<ProductsView addToCartHandler={addToCartHandler} />} />
+                  <Route path="/addToCart" element={<CartPage />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/settings" element={<Settings />} />

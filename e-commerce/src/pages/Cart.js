@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import Swal from 'sweetalert2';
 
+
 import ProductsCard from '../components/ProductsCard';
 import UserContext from '../UserContext';
 import productsData from '../data/productsData';
@@ -44,7 +45,7 @@ export default function Cart() {
             text: 'You have added this product.'
           });
 
-          navigate('/products');
+          Navigate('/products');
         } else {
           Swal.fire({
             title: 'Something went wrong',

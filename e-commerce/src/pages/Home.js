@@ -3,9 +3,9 @@ import Banner from '../components/Banner';
 import Highlights from '../components/Highlights';
 
 const data = {
-	title: "My home page",
-	content: "Put content",
-	destination: "/products",
+	title: "ALING ALENG SHAWARMA",
+	content: "EST. 2020",
+	destination: "/products/642195e083999ed8e2a66428",
 	label: "Buy Now!"
 
 }

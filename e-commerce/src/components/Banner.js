@@ -20,6 +20,7 @@ export default function Banner(){
 
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import './Banner.css';
 
 export default function Banner({data}){
 	const {title, content, destination, label} = data;
@@ -27,9 +28,9 @@ export default function Banner({data}){
 	return (
 		<Row>
 			<Col className="p-5">
-				<h1>{title}</h1>
-				<p>{content}</p>
-				<Link to = {destination}>{label}</Link>
+				<h1 className="title text-center mt-5 pt-5">{title}</h1>
+				<p className="content text-center">{content}</p>
+				{/*<div className="text-center mt-5"><Link to = {destination}>{label}</Link></div>*/}
 			</Col>
 		</Row>
 		)

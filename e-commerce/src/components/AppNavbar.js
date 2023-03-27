@@ -10,20 +10,23 @@ import UserContext from "../UserContext"
 			
 
 		return(
-			<Navbar bg="none" expand="lg">
-				<Container className="text-light" fluid>
-					<Navbar.Brand as={Link} to="/">Aling Aleng's Shawarma</Navbar.Brand>
+			<Navbar className="mr-auto" expand="lg" sticky="top" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+				<Container fluid>
+					<Navbar.Brand className="text-light" as={Link} to="/">Aling Aleng's Shawarma</Navbar.Brand>
 						<Navbar.Toggle aria-controls="basic-navbar-nav"/>
 							<Navbar.Collapse id="basic-navbar-nav">
-				    			<Nav className="mr-auto">
-				    				<Nav.Link as={NavLink} to="/"> Home</Nav.Link>
-				    				<Nav.Link as={NavLink} to="/products"> Products</Nav.Link>
+				    			<Nav >
+				    				<Nav.Link className="text-light" as={NavLink} to="/"> Home</Nav.Link>
+				    				<Nav.Link className="text-light" as={NavLink} to="/products"> Products</Nav.Link>
 				    					{(user.id !== null)?
-				    				<Nav.Link as={NavLink} to="/logout"> Logout</Nav.Link>
+				    					<Fragment>
+				    				<Nav.Link className="text-light" as={NavLink} to="/logout"> Logout</Nav.Link>
+				    				<Nav.Link className="text-light" as={NavLink} to="/addToCart"> Cart</Nav.Link>
+				    				</Fragment>
 				    					:
 				    			<Fragment>
-				    				<Nav.Link as={NavLink} to="/login"> Login</Nav.Link>
-				    				<Nav.Link as={NavLink} to="/register"> Register</Nav.Link>
+				    				<Nav.Link className="text-light" as={NavLink} to="/login"> Login</Nav.Link>
+				    				<Nav.Link className="text-light" as={NavLink} to="/register"> Register</Nav.Link>
 				    				{/*<Nav.Link as={NavLink} to="/admin"> Admin DashBoard</Nav.Link>*/}
 				    			</Fragment>
 										}

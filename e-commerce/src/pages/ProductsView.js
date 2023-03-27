@@ -3,6 +3,9 @@ import {Container, Card, Button, Row, Col} from 'react-bootstrap';
 import {useParams, useNavigate, Link} from 'react-router-dom';
 import UserContext from '../UserContext';
 import Swal from 'sweetalert2';
+import axios from 'axios';
+import productsProps from "../components/ProductsCard";
+
 
 export default function ProductView(){
 	const {user} = useContext(UserContext);
@@ -43,6 +46,29 @@ export default function ProductView(){
 
 	}
 
+	const addToCart = () => {
+  const cartItem = { name, price, quantity };
+  setCart(prevCart => [...prevCart, cartItem]);
+  Swal.fire({
+    title: "Successfully Added",
+    icon: "success",
+    text: "You have successfully added this product to your cart."
+  })
+}
+
+const addToCartHandler = async () => {
+	try {
+		const response = await axios.post('/addToCart', {
+			productId: productId,
+			quantity: 1 
+		});
+		console.log(response.data);
+		setCart([...cart, productsProps]);
+		
+	} catch (error) {
+		console.error(error);
+	}
+};
 	
 
 	const checkOut = (productId) =>{
@@ -89,6 +115,7 @@ export default function ProductView(){
 		<Container className="mt-5">
 			<Row>
 				<Col lg={{span: 6, offset: 3}}>
+				<div>
 					<Card>
 						<Card.Body className="text-center">
 							<Card.Title>{name}</Card.Title>
@@ -120,6 +147,7 @@ export default function ProductView(){
 							}
 						</Card.Body>		
 					</Card>
+				</div>
 				</Col>
 			</Row>
 		</Container>

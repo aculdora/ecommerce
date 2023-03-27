@@ -1,10 +1,18 @@
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Row, Col } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import axios from 'axios';
 
+
+
+
+
 export default function ProductsCard({ productsProps, cart, setCart }) {
-	const { _id, name, description, stocks, price } = productsProps;
+	const { _id, name, description, stocks, price, imageUrl } = productsProps;
+
+	 const descriptionLimit = 50;
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
 	const addToCartHandler = async () => {
 		try {
@@ -21,22 +29,46 @@ export default function ProductsCard({ productsProps, cart, setCart }) {
 		}
 	};
 
+	const truncatedDescription = description.slice(0, descriptionLimit);
+
 	return (
-		<Card className="mt-5">
-			<Card.Body>
-				<Card.Title>{name}</Card.Title>
-				<Card.Subtitle>Description:</Card.Subtitle>
-				<Card.Text>{description}</Card.Text>
-				<Card.Subtitle>Price:</Card.Subtitle>
-				<Card.Text>{price}</Card.Text>
-				<Button onClick={addToCartHandler}>
-					Add to Cart
-				</Button>
-				<Button as={Link} to={`/products/${_id}`}>
-					Details
-				</Button>
-			</Card.Body>
-		</Card>
+		<Row className="mt-5">
+
+		
+  
+    
+
+      <Col md={6}>
+        <img src={imageUrl} />
+      </Col>
+      <Col md={6}>
+        <Card>
+          <Card.Body style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}>
+            <Card.Title>{name}</Card.Title>
+            <Card.Subtitle>Description:</Card.Subtitle>
+            <Card.Text>
+              {showFullDescription ? description : `${truncatedDescription}...`}
+              {description.length > descriptionLimit && (
+                <Button
+                  variant="link"
+                  className="pl-0"
+                  onClick={() => setShowFullDescription(!showFullDescription)}
+                >
+                  {showFullDescription ? 'See less' : 'See more'}
+                </Button>
+              )}
+            </Card.Text>
+            <Card.Subtitle>Stocks:</Card.Subtitle>
+            <Card.Text>{stocks}</Card.Text>
+            <Card.Subtitle>Price:</Card.Subtitle>
+            <Card.Text>{price}</Card.Text>
+            <Button as={Link} to={`/products/${_id}`} onClick={addToCartHandler}>
+              Order
+            </Button>
+          </Card.Body>
+        </Card>
+		</Col>
+		</Row>
 	);
 }
 
