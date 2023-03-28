@@ -50,13 +50,14 @@ module.exports.getSingleProduct = (productId) => {
 
 // UPDATE PRODUCT INFORMATION (ADMIN)
 
-module.exports.updateProduct = (productId, newData) => {
+/*module.exports.updateProduct = (productId, newData) => {
 	if(newData.isAdmin == true){
 		return Product.findByIdAndUpdate(productId,
 			{
 				name: newData.products.name, 
 				description: newData.products.description,
-				price: newData.products.price
+				price: newData.products.price,
+				stocks: newData.products.stocks
 			}
 		).then((result, error)=>{
 			if(error){
@@ -69,9 +70,40 @@ module.exports.updateProduct = (productId, newData) => {
 		let message = Promise.resolve("This functionality is for ADMIN only!");
 		return message.then((value) => {return value});
 	}
-	
-
 }
+*/
+module.exports.updateProduct = (productId, newData) => {
+    if (newData.isAdmin === true) {
+        const updateFields = {};
+        if (newData.products.name) {
+            updateFields.name = newData.products.name;
+        }
+        if (newData.products.description) {
+            updateFields.description = newData.products.description;
+        }
+        if (newData.products.price) {
+            updateFields.price = newData.products.price;
+        }
+        if (newData.products.stocks) {
+            updateFields.stocks = newData.products.stocks;
+        }
+
+        return Product.findByIdAndUpdate(productId, updateFields)
+            .then((result, error) => {
+                if (error) {
+                    return false;
+                }
+                return true;
+            });
+    } else {
+        const message = Promise.resolve("This functionality is for ADMIN only!");
+        return message.then((value) => { return value; });
+    }
+};
+
+
+
+
 
 
 // ARCHIVE PRODUCT  (ADMIN)

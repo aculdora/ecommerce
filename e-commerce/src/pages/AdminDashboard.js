@@ -168,54 +168,48 @@ import './AdminDashboard.css';
 			}
 		})
 	}
+	const addProducts = (e) => {
+	  e.preventDefault();
 
-	const addProducts = (e) =>{
-			
-		    e.preventDefault();
+	  fetch(`${process.env.REACT_APP_API_URL}/products/create`, {
+	    method: "POST",
+	    headers: {
+	      "Content-Type": "application/json",
+	      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+	    },
+	    body: JSON.stringify({
+	      name: name,
+	      description: description,
+	      price: price,
+	      stocks: stocks,
+	    }),
+	  })
+	    .then((res) => res.json())
+	    .then((data) => {
+	      console.log(data);
 
-		    fetch(`${process.env.REACT_APP_API_URL}/products/create`, {
-		    	method: "POST",
-		    	headers: {
-					"Content-Type": "application/json",
-					"Authorization": `Bearer ${localStorage.getItem('token')}`
-				},
-				body: JSON.stringify({
-				    name: name,
-				    description: description,
-				    price: price,
-				    stocks: stocks
-				})
-		    })
-		    .then(res => res.json())
-		    .then(data => {
-		    	console.log(data);
+	      if (data) {
+	        Swal.fire({
+	          title: "Product Added Successfully",
+	          icon: "success",
+	          text: `${name} is now added to your products list.`,
+	        });
 
-		    	if(data){
-		    		Swal.fire({
-		    		    title: "Product succesfully Added",
-		    		    icon: "success",
-		    		    text: `${name} is now added`
-		    		});
-
-		    		fetchData();
-		    		closeAdd();
-		    	}
-		    	else{
-		    		Swal.fire({
-		    		    title: "Error!",
-		    		    icon: "error",
-		    		    text: `Something went wrong. Please try again later!`
-		    		});
-		    		closeAdd();
-		    	}
-
-		    })
-
-		    setName('');
-		    setDescription('');
-		    setPrice(0);
-		    setStocks(0);
-	}
+	        fetchData();
+	        setName("");
+	        setDescription("");
+	        setPrice(0);
+	        setStocks(0);
+	        setShowAdd(false);
+	      } else {
+	        Swal.fire({
+	          title: "Product Adding Failed",
+	          icon: "error",
+	          text: "Something went wrong. Please try again later!",
+	        });
+	      }
+	    });
+	};
 
 	const editProducts = (e) =>{
 		
@@ -317,7 +311,7 @@ import './AdminDashboard.css';
 	    		                placeholder="Enter Product Name" 
 	    		                value = {name}
 	    		                onChange={e => setName(e.target.value)}
-	    		                required
+	    		                
 	    	                />
 	    	            </Form.Group>
 
@@ -329,7 +323,7 @@ import './AdminDashboard.css';
 	    		                placeholder="Enter Product Description" 
 	    		                value = {description}
 	    		                onChange={e => setDescription(e.target.value)}
-	    		                required
+	    		                
 	    	                />
 	    	            </Form.Group>
 
@@ -340,7 +334,7 @@ import './AdminDashboard.css';
 	    		                placeholder="Enter Product Price" 
 	    		                value = {price}
 	    		                onChange={e => setPrice(e.target.value)}
-	    		                required
+	    		                
 	    	                />
 	    	            </Form.Group>
 
@@ -351,7 +345,7 @@ import './AdminDashboard.css';
 	    		                placeholder="Enter Product Stocks" 
 	    		                value = {stocks}
 	    		                onChange={e => setStocks(e.target.value)}
-	    		                required
+	    		                
 	    	                />
 	    	            </Form.Group>
 	    			</Modal.Body>
@@ -390,7 +384,7 @@ import './AdminDashboard.css';
     		                placeholder="Enter Product Name" 
     		                value = {name}
     		                onChange={e => setName(e.target.value)}
-    		                required
+    		                
     	                />
     	            </Form.Group>
 
@@ -399,10 +393,10 @@ import './AdminDashboard.css';
     	                <Form.Control
     	                	as="textarea"
     	                	rows={3}
-    		                placeholder="Enter Product Description" 
+    		                placeholder={"Enter Product Description"} 
     		                value = {description}
     		                onChange={e => setDescription(e.target.value)}
-    		                required
+    		                
     	                />
     	            </Form.Group>
 
@@ -413,7 +407,7 @@ import './AdminDashboard.css';
     		                placeholder="Enter Product Price" 
     		                value = {price}
     		                onChange={e => setPrice(e.target.value)}
-    		                required
+    		                
     	                />
     	            </Form.Group>
 
@@ -424,7 +418,7 @@ import './AdminDashboard.css';
     		                placeholder="Enter Product Stocks" 
     		                value = {stocks}
     		                onChange={e => setStocks(e.target.value)}
-    		                required
+    		                
     	                />
     	            </Form.Group>
     			</Modal.Body>
@@ -436,7 +430,7 @@ import './AdminDashboard.css';
     						Save
     					</Button>
     				    : 
-    				    <Button variant="danger" type="submit" id="submitBtn" disabled>
+    				    <Button variant="danger" type="submit" id="submitBtn" >
     				    	Save
     				    </Button>
     				}
