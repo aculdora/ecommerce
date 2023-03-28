@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/ecommerce/static/css/main.76db9926.css",
+    "main.js": "/ecommerce/static/js/main.e08be018.js",
+    "static/media/background.jpg": "/ecommerce/static/media/background.bff62e41d4e7f6fce389.jpg",
+    "static/media/reviews.jpg": "/ecommerce/static/media/reviews.570df74bfeaa36c9ee46.jpg",
+    "static/media/shawarmarice.jpg": "/ecommerce/static/media/shawarmarice.c4b3b56135079b15cb89.jpg",
+    "static/media/pita.jpg": "/ecommerce/static/media/pita.ad723c70a116d9b319ae.jpg",
+    "static/media/nach.jpg": "/ecommerce/static/media/nach.00a352d14a7e009fb28e.jpg",
+    "static/media/DIYshawarma.jpg": "/ecommerce/static/media/DIYshawarma.288389213bd54fcfd005.jpg",
+    "static/media/DIY4.jpg": "/ecommerce/static/media/DIY4.31b04eed83462e67813b.jpg",
+    "static/media/DIY2.jpg": "/ecommerce/static/media/DIY2.f007ae9251e931e9556c.jpg",
+    "static/media/DIY3.jpg": "/ecommerce/static/media/DIY3.8e580de3ba3b110c8599.jpg",
+    "static/media/loginP.jpg": "/ecommerce/static/media/loginP.b2ce2807df74aef27b2d.jpg",
+    "index.html": "/ecommerce/index.html",
+    "main.76db9926.css.map": "/ecommerce/static/css/main.76db9926.css.map",
+    "main.e08be018.js.map": "/ecommerce/static/js/main.e08be018.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.76db9926.css",
+    "static/js/main.e08be018.js"
+  ]
+}
