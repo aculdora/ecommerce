@@ -139,7 +139,7 @@ const addToCartHandler = async () => {
 								(user.id !== null)
 								?
 								<Fragment>
-									<Button variant="primary"  size="lg" onClick={addToCart}>Add to cart</Button>
+									{/*<Button variant="primary"  size="lg" onClick={addToCart}>Add to cart</Button>*/}
 									<Button variant="primary"  size="lg" onClick={() => checkOut(productId)}>checkOut</Button>
 									</Fragment>
 								:

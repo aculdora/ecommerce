@@ -5,6 +5,7 @@ import {Navigate, Link} from 'react-router-dom';
 import React from "react";
 import Swal from 'sweetalert2'
 import "./CSS/Login.css"
+import Photo from "../Photos/loginP.jpg"
 
 
 
@@ -104,9 +105,9 @@ export default function Login(){
             <div className="row">
                 <div className="col-md-4 col-sm-6 col-xs-12">
                    	<Form onSubmit = {(event) => authenticate(event)}>
-						<h3>Login</h3>
+						<h3 className="text-dark mt-5">Login ka lang bes</h3>
             				<Form.Group controlId="userEmail">
-               					 <Form.Label>Email address</Form.Label>
+               					 <Form.Label className="form text-dark mt-2">Dito Email Mo</Form.Label>
                						 <Form.Control 
 	                							type="email" 
 	                							placeholder="Enter email" 
@@ -117,7 +118,7 @@ export default function Login(){
             							</Form.Group>
 
             							<Form.Group controlId="password">
-                							<Form.Label>Password</Form.Label>
+                							<Form.Label className="form text-dark mt-2">Eto Naman Password Mo</Form.Label>
                 							<							Form.Control 
 	                							type="password" 
 	                							placeholder="Password" 
@@ -140,6 +141,9 @@ export default function Login(){
         							</Form>
         </div>
       </div>
+       <div className="container-fluid text-center mb-5 mt-5 pb-5 pt-5"><img src={Photo} />
     </div>
+    </div>
+   
 	)
 }}

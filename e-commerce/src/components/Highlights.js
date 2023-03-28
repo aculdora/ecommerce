@@ -2,6 +2,7 @@ import { Row, Col, Card } from 'react-bootstrap';
 import Pita from "../Photos/pita.jpg";
 import ShawarmaRice from "../Photos/shawarmarice.jpg";
 import './Banner.css';
+import Nachos from "../Photos/nach.jpg";
 
 
 
@@ -10,7 +11,7 @@ export default function Highlights() {
     return (
     	<Row className="mt-3 mb-3">
         <h1 className="text-center"></h1>
-            <Col xs={12} md={6}>
+            <Col xs={12} md={4}>
                 <Card className="cardHighlight p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
                     <Card.Body>
                         <Card.Title>
@@ -23,7 +24,7 @@ export default function Highlights() {
                     </Card.Body>
                 </Card>
             </Col>
-            <Col xs={12} md={6}>
+            <Col xs={12} md={4}>
                 <Card className="cardHighlight p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
                     <Card.Body>
                         <Card.Title>
@@ -35,6 +36,19 @@ export default function Highlights() {
                     </Card.Body>
                 </Card>
             </Col>
+            <Col xs={12} md={4}>
+                <Card className="cardHighlight p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+                    <Card.Body>
+                        <Card.Title>
+                            <h2 className="text-center text-light">Nachos</h2>
+                        </Card.Title>
+                        <Card.Text>
+                            <div className="container-fluid text-center"><img className="img-fluid"  src={Nachos} alt="Nachos" /*style={{ maxWidth: '500px' }}*/ /></div>
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            </Col>
         </Row>
+
     )
 }

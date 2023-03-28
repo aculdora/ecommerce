@@ -6,7 +6,8 @@ const productsData = [
 			description: "Mix your own shawarma! Be generous to yourself and have fun with your friends!",
 			price: 600,
 			stocks: 100,
-			isActive: true,	
+			isActive: true,
+			
 				
 		},
 		{

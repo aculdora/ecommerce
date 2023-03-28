@@ -4,6 +4,7 @@ import {Navigate, Link} from "react-router-dom";
 import Swal from "sweetalert2";
 import React from "react";
 import UserContext from "../UserContext";
+import './AdminDashboard.css';
 
 	export default function AdminDashboard(){
 
@@ -279,7 +280,7 @@ import UserContext from "../UserContext";
 		?
 		<>
 			<div className="mt-5 mb-3 text-center">
-				<h1>Admin Dashboard</h1>
+				<h1>WELCOME ADMIN!</h1>
 				<Button variant="success" className="
 				mx-2" onClick={openAdd}>Add Product</Button>
 				{/*<Button variant="secondary" className="

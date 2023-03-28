@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import UserContext from '../UserContext';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import "./CSS/Register.css"
 
 export default function Register() {
 
@@ -125,9 +126,9 @@ export default function Register() {
                 <div className="col-md-4 col-sm-6 col-xs-12">
 		<Form onSubmit = {event => registerUser(event)}>
     
-		<h3 className="text-light text-center">Register</h3>
+		<h3 className="Register text-dark text-center mt-5">Register Ka Na, Gutom Ka Na!</h3>
 			<Form.Group controlId="userFirstName">
-                <Form.Label>First Name</Form.Label>
+                <Form.Label className="form text-dark text-center mt-2">Pinangalan Sayo Ng Nanay Mo</Form.Label>
                 <Form.Control 
 	                type="text" 
 	                placeholder="Enter first name" 
@@ -138,7 +139,7 @@ export default function Register() {
              </Form.Group>
 
             <Form.Group controlId="userLastName">
-                <Form.Label>Last Name</Form.Label>
+                <Form.Label className="form text-dark text-center mt-2">Apelyido Ng Tatay Mo</Form.Label>
                 <Form.Control 
 	                type="text" 
 	                placeholder="Enter last name" 
@@ -150,7 +151,7 @@ export default function Register() {
 
 
             <Form.Group controlId="userEmail">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label className="form text-dark text-center mt-2" >Email mo, baka yahoo.com pa yan ha?</Form.Label>
                 <Form.Control 
 	                type="email" 
 	                placeholder="Enter email" 
@@ -158,13 +159,13 @@ export default function Register() {
 	                onChange = {event => setEmail(event.target.value)}
 	                required
                 />
-                <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
+                <Form.Text className="formText text-muted">
+                    Di namin papamigay email mo, wala din naman mag-ppm sayo
                 </Form.Text>
             </Form.Group>
             
             <Form.Group controlId="userMobileNumber">
-                <Form.Label>Mobile Number</Form.Label>
+                <Form.Label className="form text-dark text-center mt-2">Kung san ka pwedeng tawagan</Form.Label>
                 <Form.Control 
 	                type= "number"
 	                placeholder="Enter Mobile Number" 
@@ -175,7 +176,7 @@ export default function Register() {
              </Form.Group>
 
             <Form.Group controlId="password1">
-                <Form.Label>Password</Form.Label>
+                <Form.Label className="form text-dark text-center mt-2">Password na maaalala mo</Form.Label>
                 <Form.Control 
 	                type="password" 
 	                placeholder="Password" 
@@ -186,7 +187,7 @@ export default function Register() {
             </Form.Group>
 
             <Form.Group controlId="password2">
-                <Form.Label>Verify Password</Form.Label>
+                <Form.Label className="form text-dark text-center">Ulitin mo password baka nakalimutan mo</Form.Label>
                 <Form.Control 
 	                type="password" 
 	                placeholder="Verify Password"
@@ -207,6 +208,8 @@ export default function Register() {
         	}
         </Form>
          </div>
+         </div>
+       <div className="container-fluid text-center mb-5 mt-5 pb-5 pt-5">
       </div>
     </div>
         )
