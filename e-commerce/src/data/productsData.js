@@ -6,8 +6,8 @@ const productsData = [
 			description: "Mix your own shawarma! Be generous to yourself and have fun with your friends!",
 			price: 600,
 			stocks: 100,
-			isActive: true,
-			
+			isActive: true
+
 				
 		},
 		{
@@ -16,7 +16,7 @@ const productsData = [
 			description: "Authentic ground beef fillings dressed with fresh vagetables (cucumber, tomato & onion) generously dripped with mouth watering cheese and garlic sauce rolled in a hand-made large pita",
 			price: 75,
 			stocks: 100,
-			isActive: true,	
+			isActive: true
 			
 		},
 		{

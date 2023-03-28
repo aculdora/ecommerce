@@ -75,12 +75,12 @@ export default function Products(){
 			<Carousel className="mt-3 text-center">
 			  {images.map((image, index) => (
 			    <Carousel.Item key={index}>
-			    	<h3 className="blink">TRY OUR D.I.Y. SHAWARMA!</h3>
+			    	<h3 className="blink text-light">TRY OUR D.I.Y. SHAWARMA!</h3>
 			      <img
 			        className="d-block mx-auto w-35"
 			        src={image}
 			        alt={`Slide ${index}`}
-			        style={{ maxHeight: "400px" }}
+			        style={{ maxHeight: "500px" }}
 			      />
 			    </Carousel.Item>
 			  ))}

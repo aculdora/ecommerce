@@ -12,3 +12,8 @@ h3 {
 .form{
   font-family: 'Delicious Handrawn', cursive;
 }
+
+.Login {
+  animation: blinker 1s linear infinite;
+  font-family: 'Delicious Handrawn', cursive;
+}

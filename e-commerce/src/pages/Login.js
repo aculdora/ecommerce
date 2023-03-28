@@ -101,9 +101,10 @@ export default function Login(){
 		
 	else{
 		return(
-		<div className="container-fluid text-light">
-            <div className="row">
-                <div className="col-md-4 col-sm-6 col-xs-12">
+
+		<div className="container-fluid text-light pb-5">
+    <div className="row">
+      <div className="col-md-6 col-sm-6 col-xs-12 text-center">
                    	<Form onSubmit = {(event) => authenticate(event)}>
 						<h3 className="text-dark mt-5">Login ka lang bes</h3>
             				<Form.Group controlId="userEmail">
@@ -140,9 +141,13 @@ export default function Login(){
         								}
         							</Form>
         </div>
+         <div className="col-md-6 col-sm-6 col-xs-12 text-center mt-5">
+         <h4 className="Login">Basahin mo muna para di ka na mag "how to order" tapos</h4>
+         <h4 className="Login">&lt;---Log in ka na!</h4>
+         <div className="container-fluid text-center mb-5 mt-5 pb-5"><img src={Photo} />
       </div>
-       <div className="container-fluid text-center mb-5 mt-5 pb-5 pt-5"><img src={Photo} />
-    </div>
+</div></div>
+<div className="container-fluid text-center mb-5 mt-5 pb-5 pt-5" />
     </div>
    
 	)
